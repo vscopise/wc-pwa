@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { setGlobal } from 'reactn';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+
 import * as serviceWorker from './serviceWorker';
+
+import * as Constants from './constants'
+
+import './index.css';
+
+setGlobal({
+    apiUrl: Constants.apiUrl,
+    username: Constants.username,
+    password: Constants.password,
+    jwtToken: '',
+    products: []
+})
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
