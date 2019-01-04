@@ -1,8 +1,12 @@
-import React from 'reactn'; // <-- reactn
-import Product from './Product'
+import React from 'reactn';
+import ProductCard from './Product-Card';
+import {
+    Grid,
+} from '@material-ui/core';
+
 
 //const token = global.token;
-//import * as Constants from './constants'
+import * as Constants from '../constants';
 
 
 export default class Products extends React.PureComponent {
@@ -13,10 +17,12 @@ export default class Products extends React.PureComponent {
             isLoading: true
         };
     }
+
     componentDidMount() {
-            fetch(this.global.apiUrl + 'wc/v3/products', {
+        this.setGlobal(
+            fetch(Constants.apiUrl + 'wc/v3/products', {
                 headers: {
-                    authorization: 'Bearer ' + this.props.jwtToken,
+                    authorization: 'Bearer ' + this.global.jwtToken,
                 }
             })
             .then(response => response.json())
@@ -25,6 +31,7 @@ export default class Products extends React.PureComponent {
                 isLoading: false
             }))
             .catch()
+        )
     }
 
     render() {
@@ -32,14 +39,24 @@ export default class Products extends React.PureComponent {
             <div>
                 {
                     ! this.state.isLoading &&
-                    <div>
+                    <Grid container spacing={16}>
                         {
-                            this.state.products.map( product => (
-                                <Product product={product} key={product.id}/>
+                            this.state.products.map( element => (
+                                <Grid item xs={4}>
+                                    <ProductCard
+                                        key={element.id}
+                                        image={element.images[0].id}
+                                        name={element.name}
+                                        price={element.price}
+                                    />
+                                </Grid>
                             ))
                         }
-
-                    </div>
+                    </Grid>
+                }
+                {
+                    this.state.isLoading &&
+                    <span>loading...</span>
                 }
             </div>
         )

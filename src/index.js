@@ -1,4 +1,4 @@
-import React, { setGlobal } from 'reactn';
+import React, { addReducer, setGlobal } from 'reactn';
 import ReactDOM from 'react-dom';
 import App from './App';
 
@@ -9,12 +9,30 @@ import * as Constants from './constants'
 import './index.css';
 
 setGlobal({
-    apiUrl: Constants.apiUrl,
-    username: Constants.username,
-    password: Constants.password,
     jwtToken: '',
-    products: []
-})
+    isLoading: true,
+    products: [],
+});
+
+// Reducers
+addReducer('fetchToken', () =>
+    fetch(Constants.apiUrl + 'jwt-auth/v1/token', {
+        method: 'post',
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        }), 
+        body: JSON.stringify({
+          username: Constants.username,
+          password: Constants.password
+        })
+      })
+      .then(res => res.json())
+      .then(data => ({
+          jwtToken: data.token,
+          isLoading: false,
+      }))
+      .catch(error => console.log(error))
+);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
