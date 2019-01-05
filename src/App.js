@@ -1,6 +1,17 @@
 import React, { Component  } from 'reactn';
+import Products from './Components/Products';
+import {
+  AppBar,
+  Toolbar,
+  Menu,
+  MenuItem,
+  IconButton,
+  Badge,
+  
+} from '@material-ui/core';
+import { ShoppingCart } from '@material-ui/icons';
+
 import './App.css';
-import Products from './Components/Products'
 
 class App extends Component {
 
@@ -22,6 +33,24 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <AppBar position="static">
+          <Toolbar>
+            <Menu
+              open={false}
+            >
+              <MenuItem>
+              </MenuItem>
+            </Menu>
+            <IconButton color="inherit">
+              <Badge 
+                badgeContent={null} 
+                color="secondary"
+              >
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
         {
           !this.global.isLoading && <Products/>
         }

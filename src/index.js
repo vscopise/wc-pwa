@@ -4,7 +4,7 @@ import App from './App';
 
 import * as serviceWorker from './serviceWorker';
 
-import * as Constants from './constants'
+import * as Constants from './assets/constants'
 
 import './index.css';
 
@@ -12,6 +12,7 @@ setGlobal({
     jwtToken: '',
     isLoading: true,
     products: [],
+    cart: [],
 });
 
 // Reducers
@@ -32,6 +33,9 @@ addReducer('fetchToken', () =>
           isLoading: false,
       }))
       .catch(error => console.log(error))
+);
+addReducer('cartItems', () =>
+      return {4};
 );
 
 ReactDOM.render(<App />, document.getElementById('root'));

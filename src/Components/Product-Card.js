@@ -5,21 +5,27 @@ import {
     CardActionArea, 
     CardContent,
     CardMedia, 
+    withStyles
 } from '@material-ui/core';
+import styles from '../assets/styles'
 
-
+ 
 const ProductCard = (props) => (
-    <Card>
+    <Card className={props.classes.ProductCard}>
         <CardActionArea>
-            <CardMedia
-                image={props.image}
-                title={props.name}
-            />
+            {
+                props.image &&
+                <CardMedia
+                    className={props.classes.ProductCardMedia}
+                    image={props.image}
+                    title={props.name}
+                />
+            }
             <CardContent>
-                <h2>{props.name}</h2>
+                <h4>{props.name}</h4>
             </CardContent>
         </CardActionArea>
     </Card>
 )
 
-export default ProductCard
+export default withStyles(styles)(ProductCard)

@@ -5,8 +5,7 @@ import {
 } from '@material-ui/core';
 
 
-//const token = global.token;
-import * as Constants from '../constants';
+import * as Constants from '../assets/constants';
 
 
 export default class Products extends React.PureComponent {
@@ -41,13 +40,14 @@ export default class Products extends React.PureComponent {
                     ! this.state.isLoading &&
                     <Grid container spacing={16}>
                         {
-                            this.state.products.map( element => (
-                                <Grid item xs={4}>
+                            this.state.products.map( product => (
+                                <Grid item xs={4} key={product.id}>
+                                    {}
                                     <ProductCard
-                                        key={element.id}
-                                        image={element.images[0].id}
-                                        name={element.name}
-                                        price={element.price}
+                                        
+                                        image={product.images.length>0 ? product.images[0].src : null}
+                                        name={product.name}
+                                        price={product.price}
                                     />
                                 </Grid>
                             ))
